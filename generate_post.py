@@ -843,6 +843,31 @@ SITEMAP_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 </urlset>
 """
 ROBOTS_TXT = "User-agent: *\nAllow: /\n\nSitemap: {site_url}/sitemap.xml\n"
+
+# [FIX] 이전에는 정의 없이 참조만 되어 있어 generate_static_pages() 실행 시
+# "name 'STATIC_PAGE_TEMPLATE' is not defined" 오류로 파이프라인 전체가 실패했음.
+# about.html / privacy.html / contact.html 생성에 쓰이는 정적 페이지 템플릿을 추가.
+STATIC_PAGE_TEMPLATE = """<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{page_title} - {site_title}</title>{search_console_meta}{ga_snippet}{adsense_snippet}
+<style>
+  body {{ max-width: 720px; margin: 40px auto; padding: 0 20px 60px; font-family: 'Noto Sans KR', -apple-system, sans-serif; line-height: 1.75; color: #1a1a1a; background: #fafafa; }}
+  h1 {{ font-size: 1.5em; margin-bottom: 1em; }}
+  h2 {{ font-size: 1.1em; margin-top: 1.6em; }}
+  a {{ color: #4a90d9; }}
+  a.back {{ display: inline-block; margin-bottom: 20px; color: #4a90d9; text-decoration: none; font-weight: 700; }}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 블로그로</a>
+<h1>{page_title}</h1>
+{page_body}
+</body>
+</html>
+"""
 GEMINI_GRADIENT_COLORS = [(66, 133, 244), (156, 39, 176), (234, 67, 121)]
 THUMB_SIZE = (1280, 720)
 
