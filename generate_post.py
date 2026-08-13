@@ -92,7 +92,10 @@ POSTS_JSON = os.path.join(DOCS_DIR, "posts.json")
 
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.5-flash:generateContent?key={api_key}"
+    # [FIX] gemini-2.5-flash가 공식 종료 예정일(2026-10-16)보다 앞서 구글 측에서
+    # 조기 중단되어 404 "no longer available" 오류가 발생함. 현재 안정 버전인
+    # gemini-3.5-flash로 교체.
+    "gemini-3.5-flash:generateContent?key={api_key}"
 )
 
 # [개편] 트렌드 스토리텔링 프레이밍을 걷어내고, 처음부터 순수 가이드/정보성 콘텐츠로 전환
