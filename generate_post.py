@@ -2,7 +2,7 @@
 """
 GitHub Actions 위에서 실행되는 자동 블로그 파이프라인 스크립트 (통합판)
 - [개편] 구글 트렌드 기반 소싱을 폐기하고, 에버그린 주제 뱅크(가이드/비교/체크리스트/FAQ/용어정리) 기반으로 전면 전환
-- [개편] 카테고리별 수익화 가중치(재테크·보험대출·정부지원금·헬스 우선) 반영, 하루 8회 발행 상한
+- [개편] 카테고리별 수익화 가중치(재테크·보험대출·정부지원금·헬스 우선) 반영, 하루 6회 발행 상한
 - [업그레이드] 방문자 언어 감지 자동 번역 (버튼 숨김) 및 표 1.5배 확대 기능
 """
 
@@ -442,15 +442,8 @@ def refill_evergreen_queue(target_size: int = 20) -> None:
     logger.info(f"[에버그린 주제뱅크] 신규 편성: {len(picked)}개 (대기 {len(queue['pending'])}개)")
     logger.info("=" * 60)
 
-DAILY_PUBLISH_LIMIT = 6  # [개편] 트렌드 감지 게이트가 사라졌으므로, 콘텐츠 팜처럼 보이지 않게 하루 상한을 다시 둠(품질 우선)
-
-def check_daily_limit() -> bool:
-    queue = load_queue()
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    daily_stats = queue.get("daily_stats", {"date": "", "count": 0})
-    if daily_stats.get("date") != today_str:
-        return True
-    return daily_stats.get("count", 0) < DAILY_PUBLISH_LIMIT
+# [제거] 하루 발행 한도(DAILY_PUBLISH_LIMIT) 기능을 요청에 따라 완전히 제거함.
+# 이제 매 실행마다 한도 체크 없이 발행을 시도한다.
 
 def increment_daily_count() -> None:
     queue = load_queue()
@@ -1935,11 +1928,7 @@ def run() -> None:
     if manual_title:
         title = manual_title
     else:
-        # [개편] 트렌드 감지 게이트가 사라졌으므로 하루 발행 한도로 콘텐츠 팜화 방지
-        if not check_daily_limit():
-            logger.info(f"오늘의 발행 한도({DAILY_PUBLISH_LIMIT}회)를 모두 소진하여 포스팅을 생략합니다.")
-            return
-
+        # [제거] 하루 발행 한도 체크를 없앴으므로 매 실행마다 바로 진행한다.
         queue = load_queue()
         if not queue.get("pending"):
             logger.info("대기 중인 에버그린 주제가 없습니다. EVERGREEN_TOPIC_BANK를 확인해주세요.")
