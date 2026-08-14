@@ -48,6 +48,20 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 SITE_TITLE = os.environ.get("SITE_TITLE", "내 자동 블로그")
 SITE_TAGLINE = os.environ.get("SITE_TAGLINE", "매일 자동으로 업데이트되는 정보 큐레이션 블로그")
 SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
+if not SITE_URL:
+    # [FIX] SITE_URL(Repository Variable)이 설정되지 않으면 이전 코드는 썸네일/게시물
+    # 링크를 전부 상대경로("../thumbs/...")로 만들었음. 이 상대경로는 GitHub Pages
+    # 안에서는 문제없지만, Blogger/WordPress처럼 다른 도메인에 그대로 발행되면
+    # 이미지가 깨져서(경로가 존재하지 않아) 표시됨 — 오늘 확인된 썸네일 깨짐 현상의 원인.
+    # GitHub Actions 환경변수 GITHUB_REPOSITORY("owner/repo")로 Pages 주소를 자동 추정해서
+    # SITE_URL이 비어 있어도 항상 절대경로 URL이 나오도록 방어한다.
+    _gh_repo = os.environ.get("GITHUB_REPOSITORY", "")  # 예: "banjjokk/blog"
+    if "/" in _gh_repo:
+        _owner, _repo = _gh_repo.split("/", 1)
+        if _repo.lower() == f"{_owner.lower()}.github.io":
+            SITE_URL = f"https://{_owner}.github.io"
+        else:
+            SITE_URL = f"https://{_owner}.github.io/{_repo}"
 GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "")
 GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
 ADSENSE_CLIENT_ID = os.environ.get("ADSENSE_CLIENT_ID", "")
