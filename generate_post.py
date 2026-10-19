@@ -107,9 +107,10 @@ POSTS_JSON = os.path.join(DOCS_DIR, "posts.json")
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
     # [FIX] gemini-2.5-flash가 공식 종료 예정일(2026-10-16)보다 앞서 구글 측에서
-    # 조기 중단되어 404 "no longer available" 오류가 발생함. 현재 안정 버전인
-    # gemini-3.5-flash로 교체.
-    "gemini-3.5-flash:generateContent?key={api_key}"
+    # 조기 중단되어 404 "no longer available" 오류가 발생해 gemini-3.5-flash로 교체했었음.
+    # [FIX 2] 그 gemini-3.5-flash마저 2026-10-08부로 구글 공식 지원 종료(deprecated)되어
+    # gemini-3.6-flash로 대체됨(구글 공식 릴리스 노트 기준). 최신 안정(GA) 버전으로 재교체.
+    "gemini-3.6-flash:generateContent?key={api_key}"
 )
 
 # [개편] 트렌드 스토리텔링 프레이밍을 걷어내고, 처음부터 순수 가이드/정보성 콘텐츠로 전환
@@ -251,6 +252,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "코스피 코스닥 차이, 초보자를 위한 안내", "적금 vs 예금 vs CMA, 목적별 비교 가이드",
         "신용점수 올리는 방법 9가지", "퇴직연금 DB형 DC형 차이와 선택 기준",
         "재테크 초보자를 위한 첫 포트폴리오 짜는 법", "금리 인상기 대출 갈아타기 체크리스트",
+        "주식 배당금 세금 계산법 총정리", "ETF 국내 vs 해외 비교 가이드",
+        "청년희망적금 후속 상품 비교", "달러 환전 수수료 아끼는 방법",
+        "금 투자 실물 vs ETF 비교", "부동산 청약 가점 계산법 안내",
+        "개인회생과 파산 차이 정리", "신용카드 포인트 현금화 방법 체크리스트",
+        "비상금 통장 만드는 법 가이드", "노후 자금 준비, 3층 연금 이해하기",
     ],
     "대출보험": [
         "전세자금대출 조건과 한도 비교 가이드", "실손보험 갱신 전 꼭 확인할 체크리스트",
@@ -258,6 +264,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "보험 리모델링 할 때 주의할 점", "정책서민금융상품 종류와 신청 자격 총정리",
         "중도상환수수료 계산법과 절감 방법", "DSR DTI LTV 용어 정리, 헷갈리는 대출 규제",
         "암보험 가입 전 꼭 알아야 할 주의점", "카드론 현금서비스 차이와 상환 전략",
+        "햇살론 종류와 신청 자격 비교", "보험 해지환급금 계산법 안내",
+        "주택담보대출 고정 vs 변동금리 비교", "무직자 대출 가능한 상품 정리",
+        "자동차 할부 vs 리스 차이 비교", "치아보험 가입 전 체크리스트",
+        "운전자보험 꼭 필요한 특약 정리", "대출 갈아타기(대환대출) 절차 안내",
+        "보증보험 종류와 활용법 가이드", "반려동물보험 비교 체크리스트",
     ],
     "정부지원금": [
         "청년내일저축계좌 신청 자격과 방법", "근로장려금 신청 조건 체크리스트",
@@ -265,6 +276,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "소상공인 정책자금 종류 비교", "국민취업지원제도 신청 방법 총정리",
         "에너지바우처 대상과 신청 방법", "청년월세지원 조건과 신청 체크리스트",
         "귀농귀촌 지원금 종류와 신청 가이드", "국가장학금 소득분위 계산법 안내",
+        "청년도전지원사업 신청 방법 안내", "출산지원금 지자체별 비교 가이드",
+        "문화누리카드 신청과 사용처 정리", "장애인 활동지원 서비스 신청 안내",
+        "청년전세보증금반환보증 가이드", "농업인 안전보험 지원 내용 정리",
+        "기초생활수급자 선정 기준 안내", "노인일자리 사업 종류 비교",
+        "소상공인 전기요금 지원 신청법", "다자녀가구 지원 혜택 총정리",
     ],
     "헬스운동": [
         "홈트레이닝 초보자를 위한 시작 가이드", "단백질 보충제 종류와 고르는 법 비교",
@@ -272,6 +288,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "체지방률 계산법과 정상 범위 안내", "스트레칭 루틴, 아침저녁 비교 가이드",
         "근육통과 부상 구분하는 방법", "다이어트 정체기 극복 체크리스트",
         "필라테스 vs 요가 차이 완벽 비교", "수면의 질 높이는 습관 가이드",
+        "유산소 vs 무산소 운동 비교 가이드", "홈짐 필수 장비 체크리스트",
+        "폼롤러 활용 스트레칭 가이드", "운동 전후 식사 타이밍 안내",
+        "허리디스크 예방 운동 가이드", "거북목 교정 스트레칭 체크리스트",
+        "클라이밍 초보자를 위한 가이드", "수영 영법별 칼로리 소모 비교",
+        "크로스핏 초보자 주의사항 정리", "체형교정 운동 루틴 가이드",
     ],
     "테크IT": [
         "클라우드 저장소 요금제 비교 가이드", "노트북 고를 때 체크리스트 (사양 용어 정리)",
@@ -279,6 +300,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "스마트폰 배터리 오래 쓰는 방법", "무료 이미지 편집 프로그램 비교",
         "이메일 피싱 구별하는 방법 체크리스트", "생성형 AI 서비스 무료 vs 유료 비교",
         "와이파이 속도 느릴 때 확인할 체크리스트", "중고 전자기기 구매 전 확인사항 가이드",
+        "스마트홈 기기 초보자 가이드", "가상사설망(VPN) 선택 체크리스트",
+        "클라우드 백업 서비스 비교", "무료 PDF 편집 프로그램 정리",
+        "스마트폰 요금제 알뜰폰 비교", "중고 노트북 구매 체크리스트",
+        "이중보안(2FA) 설정 방법 가이드", "AI 챗봇 업무 활용 팁 정리",
+        "무선이어폰 노이즈캔슬링 비교", "개인정보 유출 확인 방법 안내",
     ],
     "홈인테리어": [
         "원룸 인테리어 예산별 가이드", "곰팡이 제거와 재발 방지 방법",
@@ -286,6 +312,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "미니멀 라이프 시작하는 방법", "베란다 확장 전 알아야 할 주의점",
         "친환경 세제 고르는 법 가이드", "좁은 주방 수납 아이디어 정리",
         "반려동물과 함께하는 인테리어 팁", "겨울철 난방비 아끼는 방법 체크리스트",
+        "셀프 페인트 시공 체크리스트", "원목가구 관리법 가이드",
+        "결로 방지 방법 총정리", "중문 설치 전 고려사항 정리",
+        "식물 인테리어 초보자 가이드", "좁은 현관 수납 아이디어",
+        "조명 색온도별 분위기 비교", "거실 가구 배치 노하우 정리",
+        "반려동물 털 청소 꿀팁 가이드", "이사 견적 비교 체크리스트",
     ],
     "푸드맛집": [
         "제철 채소 고르는 법과 보관 방법", "에어프라이어 활용 레시피 가이드",
@@ -293,6 +324,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "다이어트 도시락 준비 가이드", "커피 원두 로스팅 단계별 맛 차이 비교",
         "냉동식품 보관법과 주의할 점", "비건 식단 시작하는 초보자 가이드",
         "장보기 전 알아두면 좋은 체크리스트", "집들이 요리 메뉴 추천 가이드",
+        "제로슈거 디저트 고르는 법", "밀프렙 초보자 가이드",
+        "김치 종류별 보관법 정리", "홈카페 원두 보관법 체크리스트",
+        "저염식 식단 시작 가이드", "다이어트 간식 추천 체크리스트",
+        "전통 장류 고르는 법 안내", "에어프라이어 세척 관리법",
+        "캠핑 요리 밀키트 비교", "제철 과일 당도 고르는 법",
     ],
     "여행": [
         "저가항공 티켓 싸게 사는 방법", "여행자보험 가입 전 체크리스트",
@@ -300,6 +336,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "국내 캠핑장 예약 꿀팁 정리", "여권 만료 확인과 재발급 방법",
         "면세점 쇼핑 한도와 세관 신고 안내", "혼자 떠나는 여행 준비 체크리스트",
         "여행 짐 싸기 노하우, 계절별 가이드", "공항 라운지 이용 조건 비교",
+        "국내 섬여행 코스 추천 가이드", "렌터카 보험 종류 비교",
+        "장기 여행자를 위한 짐 꾸리기 팁", "해외여행 환전 타이밍 가이드",
+        "국내 당일치기 코스 추천", "여행 사진 잘 찍는 법 체크리스트",
+        "비수기 여행 할인 꿀팁 정리", "반려동물 동반여행 준비물 가이드",
+        "크루즈 여행 초보자 가이드", "야간열차 이용 꿀팁 정리",
     ],
     "뷰티패션": [
         "피부타입별 스킨케어 루틴 가이드", "쿠션 파운데이션 vs 팩트 비교",
@@ -307,6 +348,11 @@ EVERGREEN_TOPIC_BANK: Dict[str, List[str]] = {
         "체형별 옷 코디 가이드", "저자극 화장품 성분표 읽는 법",
         "각질 관리 방법과 주의할 점", "향수 지속력 높이는 방법",
         "겨울철 피부 건조 관리 가이드", "미니멀 옷장 만들기 체크리스트",
+        "탈모 샴푸 고르는 법 가이드", "민감성 피부 화장품 체크리스트",
+        "여름철 자외선 차단 꿀팁", "손발톱 관리법 가이드",
+        "스타일링 소품 활용법 정리", "저자극 클렌징 방법 안내",
+        "체형 보완 코디 가이드", "향수 레이어링 방법 정리",
+        "겨울 아우터 고르는 법", "뷰티 디바이스 사용법 체크리스트",
     ],
     "라이프스타일": [
         "미루는 습관 고치는 방법", "아침 루틴 만들기 가이드",
@@ -386,23 +432,91 @@ def pick_next_topic(queue: Dict[str, Any]) -> Optional[str]:
 
     return pending.pop(0)
 
+def _empty_queue() -> Dict[str, Any]:
+    return {"pending": [], "completed": [], "daily_stats": {"date": "", "count": 0}, "ai_generated": []}
+
 def load_queue() -> Dict[str, Any]:
     if not os.path.exists(QUEUE_FILE):
-        return {"pending": [], "completed": [], "daily_stats": {"date": "", "count": 0}}
+        return _empty_queue()
     try:
         with open(QUEUE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             data.setdefault("pending", [])
             data.setdefault("completed", [])
             data.setdefault("daily_stats", {"date": "", "count": 0})
+            data.setdefault("ai_generated", [])  # [NEW] AI 자동 생성 주제 영구 기록
             return data
     except (json.JSONDecodeError, IOError) as e:
         logger.warning(f"큐 파일을 불러오는 데 실패했습니다: {e}")
-        return {"pending": [], "completed": [], "daily_stats": {"date": "", "count": 0}}
+        return _empty_queue()
 
 def save_queue(queue: Dict[str, Any]) -> None:
     with open(QUEUE_FILE, "w", encoding="utf-8") as f:
         json.dump(queue, f, ensure_ascii=False, indent=2)
+
+def _normalize_topic(title: str) -> str:
+    """[NEW] 주제 중복 비교용 정규화. 공백/기호/대소문자 차이로 같은 주제가
+    다르게 인식되어 중복 생성되는 것을 방지한다."""
+    return re.sub(r"[\s\W]+", "", title).lower()
+
+def generate_ai_topics(used_titles: set, need: int, category_hint: str = "") -> List[str]:
+    """[NEW] EVERGREEN_TOPIC_BANK가 소진됐을 때 Gemini로 신규 에버그린 주제를
+    자동 생성한다. 365일 무중단 발행을 위한 보충 장치.
+    - used_titles: 지금까지 쓰인(= 대기/완료) 모든 주제의 정규화 집합. 겹치는 제목은 전부 걸러낸다.
+    - 실패하거나 GEMINI_API_KEY가 없으면 빈 리스트를 반환(파이프라인을 막지 않음)."""
+    if not GEMINI_API_KEY or need <= 0:
+        return []
+
+    url = GEMINI_URL.format(api_key=GEMINI_API_KEY)
+    # 프롬프트가 지나치게 길어지지 않도록 기존 제목은 최근 120개까지만 샘플로 전달
+    sample_existing = list(used_titles)[-120:]
+    category_line = f"가능하면 '{category_hint}' 주제와 어울리는 글감도 일부 포함해주세요.\n" if category_hint else ""
+    prompt = (
+        f"실용 정보 블로그에 쓸 '에버그린(시간이 지나도 유용한)' 글 제목을 {need + 5}개 만들어주세요.\n"
+        "재테크/대출보험/정부지원금/건강운동/테크IT/홈인테리어/푸드/여행/뷰티패션/라이프스타일/한국 전통문화 등 "
+        "실생활에 도움되는 가이드·비교·체크리스트형 주제로 만들어주세요.\n"
+        f"{category_line}"
+        "아래 기존 제목들과 의미가 겹치거나 비슷한 제목은 절대 만들지 마세요:\n"
+        f"{json.dumps(sample_existing, ensure_ascii=False)}\n\n"
+        '다른 설명 없이 JSON 배열(["제목1", "제목2", ...])만 출력하세요.'
+    )
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"responseMimeType": "application/json", "maxOutputTokens": 2048},
+    }
+
+    try:
+        resp = requests.post(url, json=payload, timeout=60)
+        resp.raise_for_status()
+        data = resp.json()
+        candidates = data.get("candidates") or []
+        if not candidates:
+            logger.warning("[에버그린 주제뱅크] AI 주제 생성 실패: 응답에 candidates가 없습니다.")
+            return []
+        text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+        cleaned = text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        raw_titles = json.loads(cleaned)
+        if not isinstance(raw_titles, list):
+            return []
+    except (requests.exceptions.RequestException, json.JSONDecodeError, KeyError, IndexError) as e:
+        logger.warning(f"[에버그린 주제뱅크] AI 주제 생성 실패: {e}")
+        return []
+
+    # 중복 방지: 기존 사용 이력 + 이번 배치 내 중복을 모두 걸러낸다.
+    seen = set(used_titles)
+    fresh: List[str] = []
+    for t in raw_titles:
+        if not isinstance(t, str):
+            continue
+        t = t.strip()
+        norm = _normalize_topic(t)
+        if not t or not norm or norm in seen:
+            continue
+        seen.add(norm)
+        fresh.append(t)
+        if len(fresh) >= need:
+            break
+    return fresh
 
 def refill_evergreen_queue(target_size: int = 20) -> None:
     """[개편] 에버그린 주제 뱅크에서 카테고리 가중치를 반영해 큐를 채웁니다.
@@ -410,32 +524,52 @@ def refill_evergreen_queue(target_size: int = 20) -> None:
     logger.info("=" * 60)
     logger.info("[에버그린 주제뱅크] 큐 보충 시작...")
     queue = load_queue()
+    queue.setdefault("ai_generated", [])  # [NEW] AI가 자동 생성한 주제의 영구 기록(정규화 전 원문)
+    ai_generated_norm = {_normalize_topic(t) for t in queue["ai_generated"]}
 
-    # [FIX] 구글 트렌드 시절 남아있던 잔여 키워드(주제뱅크에 없는 항목)를 자동 정리
-    stale = [t for t in queue.get("pending", []) if _topic_category(t) is None]
+    # [FIX] 구글 트렌드 시절 남아있던 잔여 키워드(주제뱅크에도, AI 생성 기록에도 없는 항목)만 정리.
+    # AI 자동 생성 주제는 EVERGREEN_TOPIC_BANK에 없는 게 정상이므로 여기서 함께 지워지지 않도록
+    # ai_generated_norm에 있는지도 같이 확인한다.
+    def _is_stale(t: str) -> bool:
+        return _topic_category(t) is None and _normalize_topic(t) not in ai_generated_norm
+
+    stale = [t for t in queue.get("pending", []) if _is_stale(t)]
     if stale:
-        queue["pending"] = [t for t in queue.get("pending", []) if _topic_category(t) is not None]
+        queue["pending"] = [t for t in queue.get("pending", []) if not _is_stale(t)]
         save_queue(queue)
         logger.info(f"[에버그린 주제뱅크] 예전 트렌드 키워드 잔여분 {len(stale)}개 정리 완료: {stale[:5]}{' ...' if len(stale) > 5 else ''}")
 
-    used = set(queue.get("pending", [])) | set(queue.get("completed", []))
+    used = set(queue.get("pending", [])) | set(queue.get("completed", [])) | set(queue["ai_generated"])
+    used_norm = {_normalize_topic(t) for t in used}
 
     # 카테고리별 미사용 주제 후보 목록
     pool: List[Tuple[str, int]] = []  # (주제, 가중치)
     for category, topics in EVERGREEN_TOPIC_BANK.items():
         weight = CATEGORY_WEIGHT.get(category, 1)
         for topic in topics:
-            if topic not in used:
+            if _normalize_topic(topic) not in used_norm:
                 pool.append((topic, weight))
-
-    if not pool:
-        logger.info("[에버그린 주제뱅크] 모든 주제를 이미 사용했습니다. EVERGREEN_TOPIC_BANK에 새 주제를 추가해주세요.")
-        logger.info("=" * 60)
-        return
 
     need = max(0, target_size - len(queue["pending"]))
     if need == 0:
         logger.info(f"[에버그린 주제뱅크] 큐가 이미 충분합니다 (대기 {len(queue['pending'])}개).")
+        logger.info("=" * 60)
+        return
+
+    if not pool:
+        # [NEW] 365일 자동 보충: 고정 주제뱅크가 소진되면 Gemini로 신규 주제를 자동 생성해
+        # 큐를 계속 채운다. 중복은 pending+completed+ai_generated 이력 전체와 대조해 방지한다.
+        logger.info("[에버그린 주제뱅크] 고정 주제뱅크를 모두 소진하여 AI로 신규 주제를 자동 생성합니다...")
+        today_category = WEEKDAY_THEME_CATEGORY.get(datetime.now().weekday(), "")
+        ai_topics = generate_ai_topics(used_norm, need, category_hint=today_category)
+        if not ai_topics:
+            logger.warning("[에버그린 주제뱅크] AI 주제 자동 생성에 실패했습니다. 다음 실행에서 재시도합니다.")
+            logger.info("=" * 60)
+            return
+        queue["pending"].extend(ai_topics)
+        queue["ai_generated"].extend(ai_topics)
+        save_queue(queue)
+        logger.info(f"[에버그린 주제뱅크] AI 자동 생성으로 신규 편성: {len(ai_topics)}개 (대기 {len(queue['pending'])}개)")
         logger.info("=" * 60)
         return
 
@@ -454,6 +588,21 @@ def refill_evergreen_queue(target_size: int = 20) -> None:
     queue["pending"].extend(picked)
     save_queue(queue)
     logger.info(f"[에버그린 주제뱅크] 신규 편성: {len(picked)}개 (대기 {len(queue['pending'])}개)")
+
+    # [NEW] 고정 주제뱅크만으로 need를 다 못 채웠다면 나머지는 AI로 자동 보충(365일 무중단용)
+    shortfall = need - len(picked)
+    if shortfall > 0:
+        logger.info(f"[에버그린 주제뱅크] 고정 주제뱅크 부족분 {shortfall}개를 AI로 자동 보충합니다...")
+        used_norm_now = used_norm | {_normalize_topic(t) for t in picked}
+        today_category = WEEKDAY_THEME_CATEGORY.get(datetime.now().weekday(), "")
+        ai_topics = generate_ai_topics(used_norm_now, shortfall, category_hint=today_category)
+        if ai_topics:
+            queue["pending"].extend(ai_topics)
+            queue["ai_generated"].extend(ai_topics)
+            save_queue(queue)
+            logger.info(f"[에버그린 주제뱅크] AI 보충 완료: {len(ai_topics)}개 (대기 {len(queue['pending'])}개)")
+        else:
+            logger.warning("[에버그린 주제뱅크] AI 보충 실패, 다음 실행에서 재시도합니다.")
     logger.info("=" * 60)
 
 # [제거] 하루 발행 한도(DAILY_PUBLISH_LIMIT) 기능을 요청에 따라 완전히 제거함.
